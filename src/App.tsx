@@ -3,17 +3,18 @@ import { GambaUi } from 'gamba-react-ui-v2'
 import { useTransactionError } from 'gamba-react-v2'
 import React from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
+import mmcheck from './components/mmcheck'
 import { Modal } from './components/Modal'
+import { TOS_HTML } from './constants'
 import { useToast } from './hooks/useToast'
 import { useUserStore } from './hooks/useUserStore'
 import Dashboard from './sections/Dashboard/Dashboard'
 import Game from './sections/Game/Game'
 import Header from './sections/Header'
+import ProductsPage from './sections/Products/page'
 import RecentPlays from './sections/RecentPlays/RecentPlays'
 import Toasts from './sections/Toasts'
 import { MainWrapper, TosInner, TosWrapper } from './styles'
-import { TOS_HTML } from './constants'
-import mmcheck from './components/mmcheck'
 function ScrollToTop() {
   const { pathname } = useLocation()
   React.useEffect(() => window.scrollTo(0, 0), [pathname])
@@ -47,6 +48,13 @@ function ErrorHandler() {
 }
 
 export default function App() {
+
+  const location = useLocation();
+
+  if (location.pathname === "/product") {
+    return <ProductsPage />;
+  }
+
   const newcomer = useUserStore((state) => state.newcomer)
   const set = useUserStore((state) => state.set)
   return (
